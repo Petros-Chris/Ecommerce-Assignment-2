@@ -1,0 +1,55 @@
+
+ul {
+  position: fixed;
+  top: 10;
+  left: 0;
+}
+
+li {
+  height: 25px;
+}
+
+body {
+    position: relative;
+    left: 250px;
+}
+
+.aboutUsPic {
+  width: 200px;
+  height: auto;
+}
+
+.imageContainer {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+label {
+  width: 150px;
+  display: inline-flex;
+}
+
+input {
+  height: 30px;
+}
+
+.inputFields {
+  width: 70%;
+  margin-bottom: 10px;
+}
+
+#button {
+  position: relative;
+  left: 154px;
+}
+
+.test {
+  display: flex;
+  align-items: center;
+}
+
+#counterDiv {
+  text-align: right;
+  width: 80%;
+}
