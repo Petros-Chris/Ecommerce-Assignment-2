@@ -1,16 +1,16 @@
 <?php
 namespace app\controllers;
-var_dump($_SESSION);
+
 #[\app\filters\Login]
 class Publication extends \app\core\Controller {
 
-	#[\app\filters\HasProfile]
+#[\app\filters\HasProfile]	
    public function index(){
 		$publication = new \app\models\Publication();
 		$publication = $publication->getForUser($_SESSION['profile_id']);
 
 		//redirect a user that has no profile to the profile creation URL
-		$this->view('Publication/index', $publication);//$profile);
+		$this->view('Publication/index', $publication);
 	}
 
     public function create(){

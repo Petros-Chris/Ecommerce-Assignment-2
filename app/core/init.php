@@ -5,6 +5,8 @@ require('app/core/Controller.php');
 require('app/core/autoload.php');
 //future inclusion for Model
 //future inclusion for Model
+
+var_dump($_SESSION);
 ?>
 
 <html>
@@ -20,7 +22,7 @@ require('app/core/autoload.php');
       <li><a href="../Profile/index">See My Profile</a></li>
       <li><a href="../User/logout">Logout</a></li>
       <li><a href="../User/register">Sign Up</a></li>
-      <li><a href="../Publication/index">Share Your Thoughts</a></li>
+      <li><a href="../Publication/create">Share Your Thoughts</a></li>
       <li><a href="../Main/index">See Publications</a></li>
     </ul>
   </nav>

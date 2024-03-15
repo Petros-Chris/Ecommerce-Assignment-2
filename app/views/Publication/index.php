@@ -19,8 +19,8 @@
                 <textarea class="inputFields" id="messageInput" name="publication_text" rows="5" placeholder="Enter Your Message Here"></textarea>
             </div>
 
-            <label><input type="radio" name="publication_status" value="publish_public">Public</label>
-            <label><input type="radio" name="publication_status" value="publish_private" checked="true">Private</label>
+            <label><input type="radio" name="publication_status" value="1">Public</label>
+            <label><input type="radio" name="publication_status" value="0" checked="true">Private</label>
 
 
             <div class="form-group">

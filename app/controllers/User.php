@@ -28,8 +28,6 @@ class User extends \app\core\Controller{
 	}
 
 	function logout(){
-		//session_destroy();
-		//$_SESSION['user_id'] = null;
 
 		session_destroy();
 
