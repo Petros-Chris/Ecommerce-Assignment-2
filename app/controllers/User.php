@@ -16,6 +16,7 @@ class User extends \app\core\Controller{
 			if($user && password_verify($password, $user->password_hash)){
 				//remember that this is the user logging in...
 				$_SESSION['user_id'] = $user->user_id;
+				
 
 				header('location:/User/securePlace');
 			}else{

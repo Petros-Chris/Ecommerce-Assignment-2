@@ -17,7 +17,7 @@
 				
 			<div class="form-group">
 				<input type="submit" name="action" value="Register" /> 
-				<a href='/User/login'>I have an account, bring me to the login page</a><!-- Value register leads to the register method in User(controllers) i think-->
+				<a href='/User/login'>I have an account, bring me to the login page</a>
 			</div>
 		</form>
 	</div>
