@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 14, 2024 at 06:22 PM
+-- Generation Time: Mar 17, 2024 at 12:48 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,14 +38,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `last_name` varchar(50) NOT NULL,
   PRIMARY KEY (`profile_id`) USING BTREE,
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `profile`
---
-
-INSERT INTO `profile` (`profile_id`, `user_id`, `first_name`, `middle_name`, `last_name`) VALUES
-(10, 6, 'zxc', 'vb', 'cvb');
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -61,8 +54,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `publication_text` varchar(500) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `publication_status` tinyint(1) NOT NULL,
-  PRIMARY KEY (`publication_id`),
-  UNIQUE KEY `profile_id` (`profile_id`)
+  PRIMARY KEY (`publication_id`,`profile_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -95,17 +87,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user`
---
-
-INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
-(1, 'chicken', '$2y$10$i.hH5MCkvGfIz5ETF8YLKe4mpZ0DX0dTsPNwnn6pAOmXQ0QHnTwEK'),
-(3, 'asd', '$2y$10$DUIp.4aS2.dYf1EvS/PrKOns9kWhmgONWCvaRC7.8Lf9J3RMhLo5G'),
-(5, 'yum', '$2y$10$EnPY6UCgM9DsS.YdvgqQDOtYqpzY83mqMoJAeYkraRxO/Yya5FRQ6'),
-(6, 'a', '$2y$10$l/PwjTPKHSq8gWrWX6B89uJWTLRC8.zy9pMr416lSEkvrKq7/YqKS');
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Constraints for dumped tables
@@ -116,12 +98,6 @@ INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
 --
 ALTER TABLE `profile`
   ADD CONSTRAINT `profile_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`);
-
---
--- Constraints for table `publication`
---
-ALTER TABLE `publication`
-  ADD CONSTRAINT `publication_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`);
 
 --
 -- Constraints for table `publication_comment`
