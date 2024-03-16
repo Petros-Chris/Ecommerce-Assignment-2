@@ -11,7 +11,6 @@ class Publication extends \app\core\Model{
     public $timestamp;
     public $publication_status;
 
-
     public function insert(){
 		$SQL = 'INSERT INTO publication(profile_id,publication_title,publication_text,timestamp,publication_status)
             VALUE (:profile_id,:publication_title,:publication_text,:timestamp,:publication_status)';
@@ -37,12 +36,28 @@ class Publication extends \app\core\Model{
 		return $STMT->fetch();//return (what should be) the only record
 	}
 
-	public function getAll(){
-		$SQL = 'SELECT * FROM publication';
+	public function getPrivacyPublicationsFromUser($publication_status, $profile_id){ //This gets one of the two types of publications from a user; 0 for private 1 for public
+		$SQL = 'SELECT * FROM publication WHERE publication_status = :publication_status AND profile_id = :profile_id';
 		$STMT = self::$_conn->prepare($SQL);
-		$STMT->execute();
-		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');//set the type of data returned by fetches
-		return $STMT->fetchAll();//return all records
+		$STMT->execute(['publication_status'=>$publication_status, 'profile_id'=>$profile_id]);
+		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
+		return $STMT->fetchAll();
+	}
+
+	public function getAllPublicationsFromUser($profile_id){ //This gets all the publications from a user
+		$SQL = 'SELECT * FROM publication WHERE profile_id = :profile_id';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(['profile_id'=>$profile_id]);
+		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
+		return $STMT->fetchAll();
+	}
+
+	public function getAllPublicPublications(){ //This gets all public publications
+		$SQL = 'SELECT * FROM publication WHERE publication_status = :publication_status';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(['publication_status'=> 1]);
+		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
+		return $STMT->fetchAll();
 	}
 
 	public function getByTitle($publication_title){

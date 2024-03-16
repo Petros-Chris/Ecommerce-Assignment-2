@@ -8,7 +8,7 @@ class Publication extends \app\core\Controller {
    public function index(){
 		$publication = new \app\models\Publication();
 		$publication = $publication->getForUser($_SESSION['profile_id']);
-	
+
 		$this->view('Publication/create', $publication);
 	}
 
@@ -32,9 +32,39 @@ class Publication extends \app\core\Controller {
 		}
     }
 
-	public function createPublicationLinks(){
+	public function createPrivatePublicationLinks(){
+		$Publication = new \app\models\Publication();
+		$result = $Publication->getPrivacyPublicationsFromUser(0, $_SESSION['profile_id']);
+
+		//$this->view('Publication/index', $Publication);
+
+		foreach ($result as $publication) {
+			$pub_title = $publication->publication_title;
+			echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
+		}
+}
+
+public function createBothPublicationLinks(){
+	$Publication = new \app\models\Publication();
+	$result = $Publication->getAllPublicationsFromUser($_SESSION['profile_id']);
+
+	foreach ($result as $publication) {
+		$pub_title = $publication->publication_title;
+		$pub_status = $publication->publication_status;
+
+		if($pub_status == 1){
+			$pub_status_string = 'Public';
+		}else{
+			$pub_status_string = 'Private';
+		}
+
+		echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title -- $pub_status_string</a><br>";
+	}
+}
+
+	public function createPublicPublicationLinks(){ 
 			$Publication = new \app\models\Publication();
-			$result = $Publication->getAll();
+			$result = $Publication->getAllPublicPublications();
 
 			$this->view('Publication/index', $Publication);
 
@@ -42,7 +72,6 @@ class Publication extends \app\core\Controller {
 				$pub_title = $publication->publication_title;
 				echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
 			}
-			
 	}
 
 	public function viewPublicationLinks(){

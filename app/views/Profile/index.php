@@ -17,5 +17,9 @@
 		</dl>
 		<a href='/Profile/modify'>Modify my profile</a> | 
 		<a href='/Profile/delete'>Delete my profile</a>
+
+		<br> <br>
+
+		<h3>Your Posts</h3>
 </body>
 </html>
