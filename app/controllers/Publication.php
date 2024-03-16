@@ -108,9 +108,9 @@ public function createBothPublicationLinks(){
 
 	public function handleSearch() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $searchTerm = $_POST['search_box']; // Grab the search term from the form
+            $searchTerm = $_POST['search_box'];
 			$publication = new \app\models\Publication(); 
-            // Assuming you have a model named PublicationModel with the necessary methods
+            
             
 
             if ($_POST['action'] == 'title') {
@@ -125,7 +125,6 @@ public function createBothPublicationLinks(){
                 $result = $publication->getByTitle($searchTerm);
 				$this->view('/Publication/index', $result);
             } else {
-                // Handle unexpected action
                 $results = [];
             }
 
