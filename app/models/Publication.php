@@ -102,4 +102,12 @@ class Publication extends \app\core\Model{
 			'publication_status'=>$this->publication_status]
 		);
 	}
+
+	public function delete(){
+		$SQL = 'DELETE FROM publication WHERE publication_id = :publication_id';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(
+			['publication_id'=>$this->publication_id]
+		);
+	}
 }

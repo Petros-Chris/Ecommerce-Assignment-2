@@ -16,15 +16,15 @@ class Publication extends \app\core\Controller {
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-            $Publication = new \app\models\Publication();
+            $publication = new \app\models\Publication();
 
-            $Publication->profile_id = $_SESSION['profile_id'];
-			$Publication->publication_title = $_POST['publication_title'];
-			$Publication->publication_text = $_POST['publication_text'];
-			$Publication->timestamp = date("Y-m-d H:i:s");
-            $Publication->publication_status = $_POST['publication_status'];
+            $publication->profile_id = $_SESSION['profile_id'];
+			$publication->publication_title = $_POST['publication_title'];
+			$publication->publication_text = $_POST['publication_text'];
+			$publication->timestamp = date("Y-m-d H:i:s");
+            $publication->publication_status = $_POST['publication_status'];
 
-            $Publication->insert();
+            $publication->insert();
 			
             header('location:/Main/index');
 		}else{
@@ -33,25 +33,25 @@ class Publication extends \app\core\Controller {
     }
 
 	public function createPrivatePublicationLinks(){
-		$Publication = new \app\models\Publication();
-		$result = $Publication->getPrivacyPublicationsFromUser(0, $_SESSION['profile_id']);
+		$publication = new \app\models\Publication();
+		$result = $publication->getPrivacyPublicationsFromUser(0, $_SESSION['profile_id']);
 
 		//$this->view('Publication/index', $Publication);
 
-		foreach ($result as $publication) {
-			$pub_title = $publication->publication_title;
+		foreach ($result as $publicationa) {
+			$pub_title = $publicationa->publication_title;
 			echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
 		}
 }
 
 public function createBothPublicationLinks(){
-	$Publication = new \app\models\Publication();
-	$result = $Publication->getAllPublicationsFromUser($_SESSION['profile_id']);
+	$publication = new \app\models\Publication();
+	$result = $publication->getAllPublicationsFromUser($_SESSION['profile_id']);
 
-	foreach ($result as $publication) {
-		$pub_title = $publication->publication_title;
-		$pub_id = $publication->publication_id;
-		$pub_status = $publication->publication_status;
+	foreach ($result as $publicationa) {
+		$pub_title = $publicationa->publication_title;
+		$pub_id = $publicationa->publication_id;
+		$pub_status = $publicationa->publication_status;
 
 		if($pub_status == 1){
 			$pub_status_string = 'Public';
@@ -64,24 +64,24 @@ public function createBothPublicationLinks(){
 }
 
 	public function createPublicPublicationLinks(){ 
-			$Publication = new \app\models\Publication();
-			$result = $Publication->getAllPublicPublications();
+			$publication = new \app\models\Publication();
+			$result = $publication->getAllPublicPublications();
 
-			$this->view('Publication/index', $Publication);
+			$this->view('Publication/index', $publication);
 
-			foreach ($result as $publication) {
-				$pub_title = $publication->publication_title;
-				$pub_id = $publication->publication_id;
+			foreach ($result as $publicationa) {
+				$pub_title = $publicationa->publication_title;
+				$pub_id = $publicationa->publication_id;
 				echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
 			}
 	}
 
 	public function viewPublicationLinks(){
-		$Publication = new \app\models\Publication();
-		$Publication = $Publication->getByPubId($_GET['id']);
+		$publication = new \app\models\Publication();
+		$publication = $publication->getByPubId($_GET['id']);
 		
-		$this->view('Publication/asdteas', $Publication);
-		$_SESSION['publication_id'] = $Publication->publication_id;
+		$this->view('Publication/asdteas', $publication);
+		$_SESSION['publication_id'] = $publication->publication_id;
 		var_dump($_SESSION);
 	}
 
@@ -103,6 +103,18 @@ public function createBothPublicationLinks(){
 			header('location:/Publication/index');
 		}else{
 			$this->view('Publication/edit', $publication);
+		}
+	}
+
+	public function delete(){
+		$publication = new \app\models\Publication();
+		$publication = $publication->getByPubId($_SESSION['publication_id']);
+
+		if($_SERVER['REQUEST_METHOD'] === 'POST'){
+			$publication->delete();
+			header('location:/Profile/index');
+		}else{
+			$this->view('Publication/delete',$publication);
 		}
 	}
 
