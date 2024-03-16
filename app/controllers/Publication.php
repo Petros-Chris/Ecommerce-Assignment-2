@@ -118,7 +118,7 @@ public function createBothPublicationLinks(){
 			   $this->view('/Publication/index', $result);
 			   foreach ($result as $display) {
 				$pub_title = $display->publication_title;
-				$pub_id = $publication->publication_id;
+				$pub_id = $display->publication_id;
 				echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
 			}
             } elseif ($_POST['action'] == 'content') {
