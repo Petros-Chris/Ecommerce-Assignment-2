@@ -65,7 +65,9 @@ class App{
         $this->addRoute('Friend/add/{id1}/{id2}','Friend,add');
         $this->addRoute('Main/index' , 'Profile,index');
         $this->addRoute('Publication/aaa' , 'Publication,index');
-        $this->addRoute('Publication/index' , 'Publication,create');
+        $this->addRoute('Publication/create' , 'Publication,create');
+        $this->addRoute('Publication/asdteas' , 'Publication,viewPublicationLinks');
+        $this->addRoute('Publication/index' , 'Publication,createPublicationLinks');
 
         [$controllerMethod, $namedParams] = $this->resolve($url);
 

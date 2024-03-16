@@ -9,7 +9,7 @@ class Publication extends \app\core\Controller {
 		$publication = new \app\models\Publication();
 		$publication = $publication->getForUser($_SESSION['profile_id']);
 	
-		$this->view('Publication/index', $publication);
+		$this->view('Publication/create', $publication);
 	}
 
     public function create(){
@@ -25,10 +25,29 @@ class Publication extends \app\core\Controller {
             $Publication->publication_status = $_POST['publication_status'];
 
             $Publication->insert();
-
+			
             header('location:/Main/index');
 		}else{
 			$this->view('Publication/create');
 		}
     }
+
+	public function createPublicationLinks(){
+			$Publication = new \app\models\Publication();
+			$result = $Publication->getAll();
+
+			$this->view('Publication/index', $Publication);
+
+			foreach ($result as $publication) {
+				$pub_title = $publication->publication_title;
+				echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
+			}
+			
+	}
+
+	public function viewPublicationLinks(){
+		$Publication = new \app\models\Publication();
+		$Publication = $Publication->getByTitle($_GET['title']);
+		$this->view('Publication/asdteas', $Publication);
+	}
 }
