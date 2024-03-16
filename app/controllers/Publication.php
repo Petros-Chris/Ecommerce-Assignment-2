@@ -105,4 +105,32 @@ public function createBothPublicationLinks(){
 			$this->view('Publication/edit', $publication);
 		}
 	}
+
+	public function handleSearch() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $searchTerm = $_POST['search_box']; // Grab the search term from the form
+			$publication = new \app\models\Publication(); 
+            // Assuming you have a model named PublicationModel with the necessary methods
+            
+
+            if ($_POST['action'] == 'title') {
+               $result = $publication->getByTitle($searchTerm);
+			   $this->view('/Publication/index', $result);
+			   foreach ($result as $display) {
+				$pub_title = $display->publication_title;
+				echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
+			}
+            } elseif ($_POST['action'] == 'content') {
+                $result = $publication->getByTitle($searchTerm);
+				$this->view('/Publication/index', $result);
+            } else {
+                // Handle unexpected action
+                $results = [];
+            }
+
+            
+           
+        }
+    }
+
 }

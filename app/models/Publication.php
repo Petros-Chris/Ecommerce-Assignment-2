@@ -61,13 +61,23 @@ class Publication extends \app\core\Model{
 	}
 
 	public function getByTitle($publication_title){
-		$SQL = 'SELECT * FROM publication WHERE publication_title = :publication_title';
+		$SQL = 'SELECT * FROM publication WHERE publication_title like :publication_title';
 		$STMT = self::$_conn->prepare($SQL);
 		$STMT->execute(
-			['publication_title'=>$publication_title]
+			['publication_title'=>"%" . $publication_title . "%"]
 		);
 		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
-		return $STMT->fetch();
+		return $STMT->fetchAll();
+	}
+
+	public function getByContent($publication_text){
+		$SQL = 'SELECT * FROM publication WHERE publication_text like :publication_text';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(
+			['publication_text'=>"%" . $publication_text . "%"]
+		);
+		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
+		return $STMT->fetchAll();
 	}
 
 	public function getByPubId($publication_id){
