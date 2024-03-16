@@ -134,8 +134,13 @@ public function createBothPublicationLinks(){
 				echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
 			}
             } elseif ($_POST['action'] == 'content') {
-                $result = $publication->getByTitle($searchTerm);
+                $result = $publication->getByContent($searchTerm);
 				$this->view('/Publication/index', $result);
+				foreach ($result as $display) {
+					$pub_title = $display->publication_title;
+					$pub_id = $display->publication_id;
+					echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
+				}
             } else {
                 $results = [];
             }
