@@ -68,6 +68,7 @@ class App{
         $this->addRoute('Publication/create' , 'Publication,create');
         $this->addRoute('Publication/asdteas' , 'Publication,viewPublicationLinks');
         $this->addRoute('Publication/index' , 'Publication,createPublicPublicationLinks');
+        $this->addRoute('Publication/Search', 'Publication,handleSearch');
 
         [$controllerMethod, $namedParams] = $this->resolve($url);
 
