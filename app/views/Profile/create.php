@@ -5,7 +5,6 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-	<div class='container'>
 		<form method='post' action=''>
 			<div class="form-group">
 				<label>First name:<input type="text" class="form-control" name="first_name" placeholder="Jon" /></label>
@@ -20,6 +19,5 @@
 				<input type="submit" name="action" value="Record my profile"/>
 			</div>
 		</form>
-	</div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 
     <body>
         <h1>Share Your Thoughts</h1>
-		<form method='post' action=''>
+		<form method='post' action='/Publication/index'>
 
             <div class="test">
                 <label for="title_input" style="width: 154px;" >Title:</label>

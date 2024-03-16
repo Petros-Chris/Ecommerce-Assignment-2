@@ -8,8 +8,7 @@ class Publication extends \app\core\Controller {
    public function index(){
 		$publication = new \app\models\Publication();
 		$publication = $publication->getForUser($_SESSION['profile_id']);
-
-		//redirect a user that has no profile to the profile creation URL
+	
 		$this->view('Publication/index', $publication);
 	}
 
@@ -29,7 +28,7 @@ class Publication extends \app\core\Controller {
 
             header('location:/Main/index');
 		}else{
-			$this->view('Publication/index');
+			$this->view('Publication/create');
 		}
     }
 }

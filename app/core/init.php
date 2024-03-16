@@ -22,7 +22,7 @@ var_dump($_SESSION);
       <li><a href="../Profile/index">See My Profile</a></li>
       <li><a href="../User/logout">Logout</a></li>
       <li><a href="../User/register">Sign Up</a></li>
-      <li><a href="../Publication/create">Share Your Thoughts</a></li>
+      <li><a href="../Publication/aaa">Share Your Thoughts</a></li>
       <li><a href="../Main/index">See Publications</a></li>
     </ul>
   </nav>
