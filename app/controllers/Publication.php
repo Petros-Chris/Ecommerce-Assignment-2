@@ -50,6 +50,7 @@ public function createBothPublicationLinks(){
 
 	foreach ($result as $publication) {
 		$pub_title = $publication->publication_title;
+		$pub_id = $publication->publication_id;
 		$pub_status = $publication->publication_status;
 
 		if($pub_status == 1){
@@ -58,7 +59,7 @@ public function createBothPublicationLinks(){
 			$pub_status_string = 'Private';
 		}
 
-		echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title -- $pub_status_string</a><br>";
+		echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title -- $pub_status_string</a><br>";
 	}
 }
 
@@ -70,13 +71,38 @@ public function createBothPublicationLinks(){
 
 			foreach ($result as $publication) {
 				$pub_title = $publication->publication_title;
-				echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
+				$pub_id = $publication->publication_id;
+				echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
 			}
 	}
 
 	public function viewPublicationLinks(){
 		$Publication = new \app\models\Publication();
-		$Publication = $Publication->getByTitle($_GET['title']);
+		$Publication = $Publication->getByPubId($_GET['id']);
+		
 		$this->view('Publication/asdteas', $Publication);
+		$_SESSION['publication_id'] = $Publication->publication_id;
+		var_dump($_SESSION);
+	}
+
+	public function modify(){
+		$publication = new \app\models\Publication();
+		$publication = $publication->getByPubId($_SESSION['publication_id']);
+
+		if($_SERVER['REQUEST_METHOD'] === 'POST'){//data is submitted through method POST
+			//make a new profile object
+			//populate it
+			$publication->publication_title = $_POST['publication_title'];
+			$publication->publication_text = $_POST['publication_text'];
+			$publication->publication_status = $_POST['publication_status'];
+			$publication->timestamp = date("Y-m-d H:i:s");
+			//update it
+			$publication->update();
+			//redirect
+			unset($_SESSION['publication_id']);
+			header('location:/Publication/index');
+		}else{
+			$this->view('Publication/edit', $publication);
+		}
 	}
 }

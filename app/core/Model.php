@@ -2,6 +2,7 @@
 namespace app\core;
 
 use PDO;
+use PDOException;
 
 class Model{
 	protected static $_conn = null;
