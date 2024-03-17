@@ -54,3 +54,11 @@ input {
   text-align: right;
   width: 80%;
 }
+.displayTitleWords {
+  width: 500px
+}
+
+.displayWords {
+    margin-left: 20px;
+    width: 500px
+}

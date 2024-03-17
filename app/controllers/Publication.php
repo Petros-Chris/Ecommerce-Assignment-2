@@ -1,7 +1,6 @@
 <?php
 namespace app\controllers;
 
-#[\app\filters\Login]
 class Publication extends \app\core\Controller {
 
 #[\app\filters\HasProfile]	
@@ -123,11 +122,10 @@ public function createBothPublicationLinks(){
             $searchTerm = $_POST['search_box'];
 			$publication = new \app\models\Publication(); 
             
-            
-
             if ($_POST['action'] == 'title') {
                $result = $publication->getByTitle($searchTerm);
 			   $this->view('/Publication/index', $result);
+
 			   foreach ($result as $display) {
 				$pub_title = $display->publication_title;
 				$pub_id = $display->publication_id;
@@ -136,6 +134,7 @@ public function createBothPublicationLinks(){
             } elseif ($_POST['action'] == 'content') {
                 $result = $publication->getByContent($searchTerm);
 				$this->view('/Publication/index', $result);
+				
 				foreach ($result as $display) {
 					$pub_title = $display->publication_title;
 					$pub_id = $display->publication_id;
@@ -144,10 +143,6 @@ public function createBothPublicationLinks(){
             } else {
                 $results = [];
             }
-
-            
-           
         }
     }
-
 }

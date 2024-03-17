@@ -1,31 +1,37 @@
 <html>
     <head>
-        <h1>DELETE :OOOO</h1>
+        <h1>Delete Post</h1>
     </head>
 
     <body>
+            
 		    <form method='post' action='/Publication/delete'>
-			    <div class="form-group">
-				    <label>First name:<input type="text" class="form-control" name="publication_title" placeholder="Jon" value="<?= $data->publication_title ?>" /></label>
-			    </div>
-			    <div class="form-group">
-				    <label>Last name:<input type="text" class="form-control" name="publication_text" placeholder="Doe" value="<?= $data->publication_text ?>" /></label>
-			    </div>
-				<label><?= $data->publication_status?></label>
-				<label><input type="radio" id="public" name="publication_status" value="1">Public</label>
-            	<label><input type="radio" id="private" name="publication_status" value="0">Private</label>
+                <dl>
+                    <dt class="displayTitleWords">Title Of Publication</dt>
+                    <dd class="displayWords"><?= $data->publication_title ?></dd>
 
-                <input type="submit" name="action" value="Delete" />
+                    <dt class="displayTitleWords">What Is Currently Written</dt>
+                    <dd class="displayWords"><?= $data->publication_text ?></dd>
+
+                    <dt class="displayTitleWords">Is Currently Set As</dt>
+                    <dd class="displayWords" id="statusDisplay"></dd>
+                </dl>
+                <h4>Are You Sure You Want to Delete This Post?</h4>
+                <input type="submit" name="action" value="Delete"/>
+                <a href='javascript:window.history.back();'>Go Back</a>
 		    </form>
     </body>
 
 
 	<script>
+        var staus;
+        
 		if(<?= $data->publication_status ?> == 1) {
-			document.getElementById('public').checked = true;
+			var staus = "Public"
 		} else {
-			document.getElementById('private').checked = true;
+			var staus = "Private"
 		}
+        document.getElementById("statusDisplay").textContent = staus;
 	</script>
 </html>
 	

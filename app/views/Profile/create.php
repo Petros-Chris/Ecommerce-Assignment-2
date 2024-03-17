@@ -7,13 +7,13 @@
 <body>
 		<form method='post' action=''>
 			<div class="form-group">
-				<label>First name:<input type="text" class="form-control" name="first_name" placeholder="Jon" /></label>
+				<label>First name:<input type="text" class="form-control" name="first_name"/></label>
 			</div>
 			<div class="form-group">
-				<label>Middle name:<input type="text" class="form-control" name="middle_name" placeholder="What is that" /></label>
+				<label>Middle name:<input type="text" class="form-control" name="middle_name"/></label>
 			</div>
 			<div class="form-group">
-				<label>Last name:<input type="text" class="form-control" name="last_name" placeholder="Doe" /></label>
+				<label>Last name:<input type="text" class="form-control" name="last_name"/></label>
 			</div>
 			<div class="form-group">
 				<input type="submit" name="action" value="Record my profile"/>
