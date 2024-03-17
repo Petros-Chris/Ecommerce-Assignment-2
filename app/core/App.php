@@ -71,7 +71,7 @@ class App{
         $this->addRoute('Publication/edit' , 'Publication,modify');
         $this->addRoute('Publication/delete', 'Publication,delete');
         $this->addRoute('Publication/Search', 'Publication,handleSearch');
-
+        
         [$controllerMethod, $namedParams] = $this->resolve($url);
 
         if(!$controllerMethod){

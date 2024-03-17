@@ -84,6 +84,7 @@ public function createBothPublicationLinks(){
 		var_dump($_SESSION);
 	}
 
+	#[\app\filters\OwnsPost]
 	public function modify(){
 		$publication = new \app\models\Publication();
 		$publication = $publication->getByPubId($_SESSION['publication_id']);
@@ -134,7 +135,7 @@ public function createBothPublicationLinks(){
             } elseif ($_POST['action'] == 'content') {
                 $result = $publication->getByContent($searchTerm);
 				$this->view('/Publication/index', $result);
-				
+
 				foreach ($result as $display) {
 					$pub_title = $display->publication_title;
 					$pub_id = $display->publication_id;
