@@ -53,7 +53,7 @@ class Publication extends \app\core\Model{
 	}
 
 	public function getAllPublicPublications(){ //This gets all public publications
-		$SQL = 'SELECT * FROM publication WHERE publication_status = :publication_status';
+		$SQL = 'SELECT * FROM publication WHERE publication_status = :publication_status ORDER BY timestamp DESC';
 		$STMT = self::$_conn->prepare($SQL);
 		$STMT->execute(['publication_status'=> 1]);
 		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
@@ -61,20 +61,22 @@ class Publication extends \app\core\Model{
 	}
 
 	public function getByTitle($publication_title){
-		$SQL = 'SELECT * FROM publication WHERE publication_title like :publication_title';
+		$SQL = 'SELECT * FROM publication WHERE publication_title like :publication_title AND publication_status = :publication_status';
 		$STMT = self::$_conn->prepare($SQL);
 		$STMT->execute(
-			['publication_title'=>"%" . $publication_title . "%"]
+			['publication_title'=>"%" . $publication_title . "%",
+			 'publication_status'=> 1]
 		);
 		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
 		return $STMT->fetchAll();
 	}
 
 	public function getByContent($publication_text){
-		$SQL = 'SELECT * FROM publication WHERE publication_text like :publication_text';
+		$SQL = 'SELECT * FROM publication WHERE publication_text like :publication_text AND publication_status = :publication_status';
 		$STMT = self::$_conn->prepare($SQL);
 		$STMT->execute(
-			['publication_text'=>"%" . $publication_text . "%"]
+			['publication_text'=>"%" . $publication_text . "%",
+			'publication_status'=> 1]
 		);
 		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Publication');
 		return $STMT->fetchAll();
