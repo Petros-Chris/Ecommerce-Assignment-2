@@ -1,90 +1,53 @@
 <?php
 namespace app\controllers;
 
-class Publication extends \app\core\Controller {
+class Comment extends \app\core\Controller {
 
 #[\app\filters\HasProfile]	
    public function index(){
-		$publication = new \app\models\Publication();
-		$publication = $publication->getForUser($_SESSION['profile_id']);
+		$comment = new \app\models\Comment();
+		$comment = $comment->getForUser($_SESSION['profile_id']);
 
-		$this->view('Publication/create', $publication);
+		$this->view('Comment/create', $comment);
 	}
 
     public function create(){
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-            $publication = new \app\models\Publication();
+            $comment = new \app\models\Comment();
 
-            $publication->profile_id = $_SESSION['profile_id'];
-			$publication->publication_title = $_POST['publication_title'];
-			$publication->publication_text = $_POST['publication_text'];
-			$publication->timestamp = date("Y-m-d H:i:s");
-            $publication->publication_status = $_POST['publication_status'];
+            $comment->profile_id = $_SESSION['profile_id'];
+			$comment->publication_id = $_SESSION['publication_id'];
+			$comment->comment_text = $_POST['comment_text'];
+            $comment->timestamp = date("Y-m-d H:i:s");
 
-            $publication->insert();
+            $comment->insert();
 			
             header('location:/Main/index');
 		}else{
-			$this->view('Publication/create');
+			$this->view('Comment/create');
 		}
     }
 
-	public function createPrivatePublicationLinks(){
-		$publication = new \app\models\Publication();
-		$result = $publication->getPrivacyPublicationsFromUser(0, $_SESSION['profile_id']);
-
-		//$this->view('Publication/index', $Publication);
-
-		foreach ($result as $publicationa) {
-			$pub_title = $publicationa->publication_title;
-			echo "<a href='../Publication/asdteas?title=$pub_title'>$pub_title</a><br>";
-		}
-}
-
-public function createBothPublicationLinks(){
-	$publication = new \app\models\Publication();
-	$result = $publication->getAllPublicationsFromUser($_SESSION['profile_id']);
-
-	foreach ($result as $publicationa) {
-		$pub_title = $publicationa->publication_title;
-		$pub_id = $publicationa->publication_id;
-		$pub_status = $publicationa->publication_status;
-
-		if($pub_status == 1){
-			$pub_status_string = 'Public';
-		}else{
-			$pub_status_string = 'Private';
-		}
-
-		echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title -- $pub_status_string</a><br>";
-	}
-}
-
 	public function createPublicPublicationLinks(){ 
-			$publication = new \app\models\Publication();
-			$result = $publication->getAllPublicPublications();
+			$comment = new \app\models\Comment();
+			$result = $comment->getAllComments($_SESSION['publication_id']);
 
-			$this->view('Publication/index', $publication);
+			foreach ($result as $comment) {
+				$comment_id = $comment->publication_comment_id;
+                echo("<br>");
+				echo "<a href='../Comment/index?commentId=$comment_id'>$comment_id</a><br>";
 
-			foreach ($result as $publicationa) {
-				$pub_title = $publicationa->publication_title;
-				$pub_id = $publicationa->publication_id;
-				echo "<a href='../Publication/asdteas?title=$pub_title&id=$pub_id'>$pub_title</a><br>";
 			}
 	}
 
 	public function viewPublicationLinks(){
-		$publication = new \app\models\Publication();
-		$publication = $publication->getByPubId($_GET['id']);
-		$comment = new \app\controllers\Comment();
-
-
-		$this->view('Publication/asdteas', $publication);
-		$_SESSION['publication_id'] = $publication->publication_id;
-		$comment->createPublicPublicationLinks();
-
+		$comment = new \app\models\Comment();
+		$comment = $comment->getByPubId($_GET['commentId']);
+		
+		$this->view('Comment/index', $comment);
+		$_SESSION['publication_comment_id'] = $comment->publication_comment_id;
 		var_dump($_SESSION);
 	}
 

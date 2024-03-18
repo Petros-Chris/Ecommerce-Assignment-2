@@ -71,6 +71,8 @@ class App{
         $this->addRoute('Publication/edit' , 'Publication,modify');
         $this->addRoute('Publication/delete', 'Publication,delete');
         $this->addRoute('Publication/Search', 'Publication,handleSearch');
+        $this->addRoute('Comment/create', 'Comment,create');
+        $this->addRoute('Comment/index', 'Comment,viewPublicationLinks');
         
         [$controllerMethod, $namedParams] = $this->resolve($url);
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 17, 2024 at 12:48 AM
+-- Generation Time: Mar 18, 2024 at 01:02 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,7 +38,14 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `last_name` varchar(50) NOT NULL,
   PRIMARY KEY (`profile_id`) USING BTREE,
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `profile`
+--
+
+INSERT INTO `profile` (`profile_id`, `user_id`, `first_name`, `middle_name`, `last_name`) VALUES
+(17, 1, 'greg', 'groog', 'grag');
 
 -- --------------------------------------------------------
 
@@ -55,7 +62,15 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `publication_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`publication_id`,`profile_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `publication`
+--
+
+INSERT INTO `publication` (`publication_id`, `profile_id`, `publication_title`, `publication_text`, `timestamp`, `publication_status`) VALUES
+(1, 17, 'Book about flowers', 'Anyone heard of the flower book cool', '2024-03-17 20:33:55', 1),
+(2, 17, 'yellow book', 'Can I know the person ', '2024-03-17 21:12:20', 1);
 
 -- --------------------------------------------------------
 
@@ -68,11 +83,18 @@ CREATE TABLE IF NOT EXISTS `publication_comment` (
   `publication_comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `profile_id` int(11) NOT NULL,
   `publication_id` int(11) NOT NULL,
+  `comment_text` varchar(250) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`publication_comment_id`),
-  UNIQUE KEY `profile_id` (`profile_id`),
-  UNIQUE KEY `publication_id` (`publication_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`publication_comment_id`,`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `publication_comment`
+--
+
+INSERT INTO `publication_comment` (`publication_comment_id`, `profile_id`, `publication_id`, `comment_text`, `timestamp`) VALUES
+(1, 17, 2, 'This is great!!!!', '2024-03-18 00:35:41'),
+(2, 17, 2, 'No this is terrible >:(', '2024-03-18 00:35:57');
 
 -- --------------------------------------------------------
 
@@ -87,7 +109,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
+(1, 'greg', '$2y$10$2yM/SesPo0YU8Z3PHSkW7u4k3B54dEjRLxebnE7lJjohO32ufLxda');
 
 --
 -- Constraints for dumped tables
