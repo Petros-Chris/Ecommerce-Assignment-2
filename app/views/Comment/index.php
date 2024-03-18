@@ -5,7 +5,8 @@
     <dl>
 <dd>    
         <?=$data->comment_text?>
-
+        <br>
+        <a href="/Comment/edit">Edit Comment</a>
 </dd>
 
     </dl>

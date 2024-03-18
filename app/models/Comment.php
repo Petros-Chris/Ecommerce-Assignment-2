@@ -52,5 +52,25 @@ class Comment extends \app\core\Model{
 		$STMT->setFetchMode(PDO::FETCH_CLASS,'app\models\Comment');
 		return $STMT->fetch();
 	}
+
+	public function update(){
+		$SQL = 'UPDATE publication_comment SET profile_id= :profile_id,publication_id=:publication_id,
+			comment_text=:comment_text,timestamp=:timestamp WHERE publication_comment_id= :publication_comment_id';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(
+			['profile_id'=>$this->profile_id,
+            'publication_id'=>$this->publication_id,
+            'comment_text'=>$this->comment_text,
+			'timestamp'=>$this->timestamp,
+			'publication_comment_id'=>$this->publication_comment_id]
+		);
+	}
+	public function delete(){
+		$SQL = 'DELETE FROM publication_comment WHERE publication_comment_id = :publication_comment_id';
+		$STMT = self::$_conn->prepare($SQL);
+		$STMT->execute(
+			['publication_comment_id'=>$this->publication_comment_id]
+		);
+	}	
 }
     ?>

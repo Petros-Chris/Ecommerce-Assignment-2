@@ -51,37 +51,38 @@ class Comment extends \app\core\Controller {
 		var_dump($_SESSION);
 	}
 
-	#[\app\filters\OwnsPost]
+#[\app\filters\OwnsComment]
 	public function modify(){
-		$publication = new \app\models\Publication();
-		$publication = $publication->getByPubId($_SESSION['publication_id']);
+		$comment= new \app\models\Comment();
+		$comment = $comment->getByPubId($_SESSION['publication_comment_id']);
 
 		if($_SERVER['REQUEST_METHOD'] === 'POST'){//data is submitted through method POST
+			//$comment = $comment->getByPubId($_SESSION['commentId']);
 			//make a new profile object
 			//populate it
-			$publication->publication_title = $_POST['publication_title'];
-			$publication->publication_text = $_POST['publication_text'];
-			$publication->publication_status = $_POST['publication_status'];
-			$publication->timestamp = date("Y-m-d H:i:s");
+			$comment->profile_id = $_SESSION['profile_id'];
+			$comment->publication_id = $_SESSION['publication_id'];
+			$comment->comment_text = $_POST['comment_text'];
+            $comment->timestamp = date("Y-m-d H:i:s");
 			//update it
-			$publication->update();
+			$comment->update();
 			//redirect
-			unset($_SESSION['publication_id']);
+			//unset($_SESSION['commentId']);
 			header('location:/Publication/index');
 		}else{
-			$this->view('Publication/edit', $publication);
+			$this->view('Comment/edit', $comment);
 		}
 	}
 
 	public function delete(){
-		$publication = new \app\models\Publication();
-		$publication = $publication->getByPubId($_SESSION['publication_id']);
+		$comment = new \app\models\Comment();
+		$comment= $comment->getByPubId($_SESSION['publication_comment_id']);
 
 		if($_SERVER['REQUEST_METHOD'] === 'POST'){
-			$publication->delete();
-			header('location:/Profile/index');
+			$comment->delete();
+			header('location:/Publication/index');
 		}else{
-			$this->view('Publication/delete',$publication);
+			$this->view('Comment/delete',$comment);
 		}
 	}
 
