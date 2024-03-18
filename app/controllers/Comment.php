@@ -11,6 +11,7 @@ class Comment extends \app\core\Controller {
 		$this->view('Comment/create', $comment);
 	}
 
+#[\app\filters\Login]
     public function create(){
 
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
@@ -36,9 +37,9 @@ class Comment extends \app\core\Controller {
 
 			foreach ($result as $comment) {
 				$comment_id = $comment->publication_comment_id;
+				$sum_of_text = substr($comment->comment_text, 0,20);
                 echo("<br>");
-				echo "<a href='../Comment/index?commentId=$comment_id'>$comment_id</a><br>";
-
+				echo "<a href='../Comment/index?commentId=$comment_id'>$sum_of_text</a><br>";
 			}
 	}
 
