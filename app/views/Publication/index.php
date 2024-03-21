@@ -10,6 +10,5 @@
             <input type="submit" name="action" value="content">
         </form>
     </body>
-
 </html>
 

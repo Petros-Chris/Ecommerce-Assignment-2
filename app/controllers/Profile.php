@@ -12,7 +12,6 @@ class Profile extends \app\core\Controller{
 		$profile = $profile->getForUser($_SESSION['user_id']);
 		$_SESSION['profile_id'] = $profile->profile_id;
 
-		
 		//redirect a user that has no profile to the profile creation URL
 		$this->view('Profile/index',$profile);
 		$test->createBothPublicationLinks();
@@ -56,13 +55,6 @@ class Profile extends \app\core\Controller{
 	}
 
 	public function delete(){
-		//present the user with a form to confirm the deletion that is requested and delete if the form is submitted
-/*		//make sure that the user is logged in
-		if(!isset($_SESSION['user_id'])){
-			header('location:/User/login');
-			return;
-		}
-*/
 		$profile = new \app\models\Profile();
 		$profile = $profile->getForUser($_SESSION['user_id']);
 

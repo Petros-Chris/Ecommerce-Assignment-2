@@ -16,8 +16,6 @@ class User extends \app\core\Controller{
 			if($user && password_verify($password, $user->password_hash)){
 				//remember that this is the user logging in...
 				$_SESSION['user_id'] = $user->user_id;
-				
-
 				header('location:/User/securePlace');
 			}else{
 				header('location:/User/login');
@@ -28,9 +26,7 @@ class User extends \app\core\Controller{
 	}
 
 	function logout(){
-
 		session_destroy();
-
 		header('location:/User/login');
 	}
 
@@ -66,7 +62,6 @@ class User extends \app\core\Controller{
 			header('location:/User/login');
 			return;
 		}
-
 		$user = new \app\models\User();
 		$user = $user->getById($_SESSION['user_id']);
 
@@ -90,11 +85,9 @@ class User extends \app\core\Controller{
 			header('location:/User/login');
 			return;
 		}
-
 		$user = new \app\models\User();
 		$user = $user->getById($_SESSION['user_id']);
 		$user->delete();
 		header('location:/User/logout');
 	}
-
 }

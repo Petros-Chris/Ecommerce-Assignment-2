@@ -14,7 +14,6 @@
 			<div class="form-group">
 				<label>Password:<input type="password" class="form-control" name="password" placeholder="password" /></label>
 			</div>
-
 			<div class="form-group">
 				<input type="submit" name="action" value="Login" /> 
 				<a href='/User/register'>I have no account, bring me to the registration page</a>

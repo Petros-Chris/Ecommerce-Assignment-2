@@ -1,10 +1,9 @@
 <html>
-    <head>
-
-    </head>
-
-    <body>
+	<head>
 		<h1>Edit Post</h1>
+	</head>
+	
+    <body>
 		<br>
 		<form method='post' action=''>
             <div class="test">

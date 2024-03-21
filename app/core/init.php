@@ -5,8 +5,6 @@ require('app/core/Controller.php');
 require('app/core/autoload.php');
 //future inclusion for Model
 //future inclusion for Model
-
-var_dump($_SESSION);
 ?>
 
 <html>
