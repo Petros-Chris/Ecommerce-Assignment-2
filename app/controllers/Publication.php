@@ -12,7 +12,6 @@ class Publication extends \app\core\Controller {
 	}
 
     public function create(){
-
         if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $publication = new \app\models\Publication();
 
@@ -76,12 +75,9 @@ class Publication extends \app\core\Controller {
 		$publication = $publication->getByPubId($_GET['id']);
 		$comment = new \app\controllers\Comment();
 
-
 		$this->view('Publication/asdteas', $publication);
 		$_SESSION['publication_id'] = $publication->publication_id;
 		$comment->createPublicPublicationLinks();
-
-		var_dump($_SESSION);
 	}
 
 	#[\app\filters\OwnsPost]

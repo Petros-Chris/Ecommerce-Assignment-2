@@ -5,5 +5,8 @@
 		    <dd class="displayWords"><?= $data->publication_text ?></dd>
       </dl>
       <a href="/Publication/edit">Edit This Post</a>
+      <a href="/Comment/create">Add a comment</a>
+
+      <h3>Comments:</h3>
   </body>
 </html>

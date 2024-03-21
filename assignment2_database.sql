@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 21, 2024 at 03:01 AM
+-- Generation Time: Mar 21, 2024 at 04:02 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `last_name` varchar(50) NOT NULL,
   PRIMARY KEY (`profile_id`) USING BTREE,
   UNIQUE KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `profile`
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
 
 INSERT INTO `profile` (`profile_id`, `user_id`, `first_name`, `middle_name`, `last_name`) VALUES
 (17, 1, 'greg', 'groog', 'grag'),
-(18, 2, '', '', '');
+(19, 3, 'yum', 'mmmm', 'ers');
 
 -- --------------------------------------------------------
 
@@ -64,7 +64,7 @@ CREATE TABLE IF NOT EXISTS `publication` (
   `publication_status` tinyint(1) NOT NULL,
   PRIMARY KEY (`publication_id`,`profile_id`),
   KEY `FK_Profile_ID_profile` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `publication`
@@ -72,7 +72,8 @@ CREATE TABLE IF NOT EXISTS `publication` (
 
 INSERT INTO `publication` (`publication_id`, `profile_id`, `publication_title`, `publication_text`, `timestamp`, `publication_status`) VALUES
 (1, 17, 'Book about flowers', 'Anyone heard of the flower book coo', '2024-03-18 18:43:46', 1),
-(2, 17, 'yellow book', 'Can I know the person ', '2024-03-17 21:12:20', 1);
+(2, 17, 'yellow book', 'Can I know the person ', '2024-03-17 21:12:20', 1),
+(7, 19, 'Thinking is hard', 'I\'m a visual learner', '2024-03-21 04:01:14', 1);
 
 -- --------------------------------------------------------
 
@@ -87,8 +88,10 @@ CREATE TABLE IF NOT EXISTS `publication_comment` (
   `publication_id` int(11) NOT NULL,
   `comment_text` varchar(250) NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`publication_comment_id`,`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  PRIMARY KEY (`publication_comment_id`,`profile_id`),
+  KEY `publication_comment_ibfk_1` (`publication_id`),
+  KEY `publication_comment_ibfk_2` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `publication_comment`
@@ -97,7 +100,8 @@ CREATE TABLE IF NOT EXISTS `publication_comment` (
 INSERT INTO `publication_comment` (`publication_comment_id`, `profile_id`, `publication_id`, `comment_text`, `timestamp`) VALUES
 (1, 17, 2, 'This is great!!!!', '2024-03-18 00:35:41'),
 (2, 17, 2, 'This is a test', '2024-03-18 00:35:41'),
-(3, 17, 2, 'actually this is so cool', '2024-03-18 18:22:03');
+(3, 17, 2, 'actually this is so cool', '2024-03-18 18:22:03'),
+(12, 19, 1, 'I have!!!\r\n\r\nIts such a great book you gotta check it out sometime', '2024-03-21 04:00:26');
 
 -- --------------------------------------------------------
 
@@ -112,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `password_hash` varchar(60) NOT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `user`
@@ -120,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`user_id`, `username`, `password_hash`) VALUES
 (1, 'greg', '$2y$10$2yM/SesPo0YU8Z3PHSkW7u4k3B54dEjRLxebnE7lJjohO32ufLxda'),
-(2, '', '$2y$10$xRHAJkKWodPj3U7ZO.gAkeHu1r5oW82UpBcbUWyFnebLQuWBo5Q6O');
+(3, 'Crackers', '$2y$10$0Pjztf5o/xdXufLnD3ZNuuIDxPFKsPiu1xdbwh.s3p7UpG6vmeXNa');
 
 --
 -- Constraints for dumped tables
@@ -142,8 +146,8 @@ ALTER TABLE `publication`
 -- Constraints for table `publication_comment`
 --
 ALTER TABLE `publication_comment`
-  ADD CONSTRAINT `publication_comment_ibfk_1` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`),
-  ADD CONSTRAINT `publication_comment_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`);
+  ADD CONSTRAINT `publication_comment_ibfk_1` FOREIGN KEY (`publication_id`) REFERENCES `publication` (`publication_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `publication_comment_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`profile_id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

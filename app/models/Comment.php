@@ -17,8 +17,7 @@ class Comment extends \app\core\Model{
 		$STMT = self::$_conn->prepare($SQL);
 
 		$STMT->execute(
-			[
-            'profile_id'=>$this->profile_id,
+            ['profile_id'=>$this->profile_id,
             'publication_id'=>$this->publication_id,
             'comment_text'=>$this->comment_text,
 			'timestamp'=>$this->timestamp]
@@ -65,6 +64,7 @@ class Comment extends \app\core\Model{
 			'publication_comment_id'=>$this->publication_comment_id]
 		);
 	}
+	
 	public function delete(){
 		$SQL = 'DELETE FROM publication_comment WHERE publication_comment_id = :publication_comment_id';
 		$STMT = self::$_conn->prepare($SQL);
@@ -73,4 +73,3 @@ class Comment extends \app\core\Model{
 		);
 	}	
 }
-    ?>

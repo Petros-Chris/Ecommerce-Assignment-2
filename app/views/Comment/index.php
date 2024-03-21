@@ -1,18 +1,13 @@
 <html>
-<head>
-    <h1>Comment</h1>
+    <head>
+        <h1>Comment</h1>
+    </head>
 
-    <dl>
-<dd>    
-        <?=$data->comment_text?>
-        <br>
-        <a href="/Comment/edit">Edit Comment</a>
-</dd>
-
-    </dl>
-
-</head>
-
-
-
+    <body>
+        <dl>
+            <dd class="displayWords"><?=$data->comment_text?></dd>
+            <br>
+            <a href="/Comment/edit">Edit Comment</a>
+        </dl>   
+    </body> 
 </html>
